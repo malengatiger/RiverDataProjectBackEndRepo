@@ -183,7 +183,7 @@ public class Shape2SQLParser {
             addRiverPart(r, record);
 
         } catch (NoResultException e) {
-            preparedStatement1.setString(1, name);
+            preparedStatement1.setString(1, name.trim());
             preparedStatement1.executeUpdate();
             ResultSet rs = preparedStatement1.getGeneratedKeys();
             Integer id = null;
@@ -192,7 +192,7 @@ public class Shape2SQLParser {
             }
             if (id != null) {
                 Query q = em.createNamedQuery("River.findByRiverName", River.class);
-                q.setParameter("riverName", name);
+                q.setParameter("riverName", name.trim());
                 q.setMaxResults(1);
                 River r = (River) q.getSingleResult();
                 addRiverPart(r, record);
@@ -223,7 +223,7 @@ public class Shape2SQLParser {
         }
         preparedStatement2.setInt(1, river.getRiverID());
         preparedStatement2.setInt(2, tImprivID.intValue());
-        preparedStatement2.setString(3, river.getRiverName());
+        preparedStatement2.setString(3, river.getRiverName().trim());
         preparedStatement2.setInt(4, fNode.intValue());
         preparedStatement2.setInt(5, tNode.intValue());
         preparedStatement2.setDouble(6, dist.doubleValue());
